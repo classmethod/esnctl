@@ -30,7 +30,7 @@ We realize that these operations should be automated and conducted by ONE action
 
 ## Required environment
 
-- Elasticsearch 1.x / 2.x / 5.x
+- Elasticsearch 1.x / 2.x / 5.x / 6.x
 - Elasticsearch cluster is running on __AWS EC2 instances__
   - Using [EC2 Discovery](https://www.elastic.co/guide/en/elasticsearch/plugins/current/discovery-ec2-discovery.html)
 - EC2 instances are managed by __AWS Auto Scaling Groups__
@@ -70,7 +70,7 @@ export AWS_REGION=xx-yyyy-0
 List nodes
 
 ```bash
-$ esnctl add \
+$ esnctl list \
   --cluster-url http://elasticsearch.example.com
 ip-10-0-1-21.ap-northeast-1.compute.internal
 ip-10-0-1-22.ap-northeast-1.compute.internal
