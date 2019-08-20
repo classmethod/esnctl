@@ -24,7 +24,7 @@ func (c *Client) DetachInstance(targetGroupARN, instanceID string) error {
 	_, err := c.api.DeregisterTargets(&elbv2.DeregisterTargetsInput{
 		TargetGroupArn: aws.String(targetGroupARN),
 		Targets: []*elbv2.TargetDescription{
-			&elbv2.TargetDescription{
+			{
 				Id: aws.String(instanceID),
 			},
 		},

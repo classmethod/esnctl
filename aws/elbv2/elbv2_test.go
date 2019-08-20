@@ -18,7 +18,7 @@ func TestDetachInstance(t *testing.T) {
 	api.EXPECT().DeregisterTargets(&elbv2.DeregisterTargetsInput{
 		TargetGroupArn: aws.String("arn:aws:elasticloadbalancing:ap-northeast-1:012345678901:targetgroup/elasticsearch/0123abcd5678efab"),
 		Targets: []*elbv2.TargetDescription{
-			&elbv2.TargetDescription{
+			{
 				Id: aws.String("i-1234abcd"),
 			},
 		},
@@ -45,7 +45,7 @@ func TestListTargetInstances(t *testing.T) {
 		TargetGroupArn: aws.String("arn:aws:elasticloadbalancing:ap-northeast-1:012345678901:targetgroup/elasticsearch/0123abcd5678efab"),
 	}).Return(&elbv2.DescribeTargetHealthOutput{
 		TargetHealthDescriptions: []*elbv2.TargetHealthDescription{
-			&elbv2.TargetHealthDescription{
+			{
 				Target: &elbv2.TargetDescription{
 					Id: aws.String("i-1234abcd"),
 				},
@@ -53,7 +53,7 @@ func TestListTargetInstances(t *testing.T) {
 					State: aws.String("healthy"),
 				},
 			},
-			&elbv2.TargetHealthDescription{
+			{
 				Target: &elbv2.TargetDescription{
 					Id: aws.String("i-5678efab"),
 				},
