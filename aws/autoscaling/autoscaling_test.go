@@ -9,6 +9,8 @@ import (
 	"github.com/golang/mock/gomock"
 )
 
+const groupName = "elasticsearch"
+
 func TestDetachInstance(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -26,7 +28,6 @@ func TestDetachInstance(t *testing.T) {
 		api: api,
 	}
 
-	groupName := "elasticsearch"
 	instanceID := "i-1234abcd"
 
 	if err := client.DetachInstance(groupName, instanceID); err != nil {
@@ -45,7 +46,7 @@ func TestIncreaseInstances(t *testing.T) {
 		},
 	}).Return(&autoscaling.DescribeAutoScalingGroupsOutput{
 		AutoScalingGroups: []*autoscaling.Group{
-			&autoscaling.Group{
+			{
 				AutoScalingGroupName: aws.String("elasticsearch"),
 				DesiredCapacity:      aws.Int64(3),
 			},
@@ -60,7 +61,6 @@ func TestIncreaseInstances(t *testing.T) {
 		api: api,
 	}
 
-	groupName := "elasticsearch"
 	delta := 2
 
 	got, err := client.IncreaseInstances(groupName, delta)
@@ -84,7 +84,7 @@ func TestRetrieveTargetGroup(t *testing.T) {
 		AutoScalingGroupName: aws.String("elasticsearch"),
 	}).Return(&autoscaling.DescribeLoadBalancerTargetGroupsOutput{
 		LoadBalancerTargetGroups: []*autoscaling.LoadBalancerTargetGroupState{
-			&autoscaling.LoadBalancerTargetGroupState{
+			{
 				LoadBalancerTargetGroupARN: aws.String("arn:aws:elasticloadbalancing:ap-northeast-1:012345678901:targetgroup/elasticsearch/0123abcd5678efab"),
 			},
 		},
@@ -94,7 +94,6 @@ func TestRetrieveTargetGroup(t *testing.T) {
 		api: api,
 	}
 
-	groupName := "elasticsearch"
 	expected := "arn:aws:elasticloadbalancing:ap-northeast-1:012345678901:targetgroup/elasticsearch/0123abcd5678efab"
 
 	got, err := client.RetrieveTargetGroup(groupName)
