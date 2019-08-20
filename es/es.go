@@ -8,10 +8,10 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/dtan4/esnctl/es/v1"
-	"github.com/dtan4/esnctl/es/v2"
-	"github.com/dtan4/esnctl/es/v5"
-	"github.com/dtan4/esnctl/es/v6"
+	v1 "github.com/dtan4/esnctl/es/v1"
+	v2 "github.com/dtan4/esnctl/es/v2"
+	v5 "github.com/dtan4/esnctl/es/v5"
+	v6 "github.com/dtan4/esnctl/es/v6"
 	"github.com/pkg/errors"
 )
 

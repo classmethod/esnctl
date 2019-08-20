@@ -23,7 +23,7 @@ func New(api ec2iface.EC2API) *Client {
 func (c *Client) RetrieveInstanceIDFromPrivateDNS(privateDNS string) (string, error) {
 	resp, err := c.api.DescribeInstances(&ec2.DescribeInstancesInput{
 		Filters: []*ec2.Filter{
-			&ec2.Filter{
+			{
 				Name: aws.String("private-dns-name"),
 				Values: []*string{
 					aws.String(privateDNS),

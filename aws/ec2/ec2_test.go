@@ -16,7 +16,7 @@ func TestRetrieveInstanceIDFromPrivateDNS(t *testing.T) {
 	api := mock.NewMockEC2API(ctrl)
 	api.EXPECT().DescribeInstances(&ec2.DescribeInstancesInput{
 		Filters: []*ec2.Filter{
-			&ec2.Filter{
+			{
 				Name: aws.String("private-dns-name"),
 				Values: []*string{
 					aws.String("ip-10-0-1-23.ap-northeast-1.compute.internal"),
@@ -25,9 +25,9 @@ func TestRetrieveInstanceIDFromPrivateDNS(t *testing.T) {
 		},
 	}).Return(&ec2.DescribeInstancesOutput{
 		Reservations: []*ec2.Reservation{
-			&ec2.Reservation{
+			{
 				Instances: []*ec2.Instance{
-					&ec2.Instance{
+					{
 						InstanceId:     aws.String("i-1234abcd"),
 						PrivateDnsName: aws.String("ip-10-0-1-23.ap-northeast-1.compute.internal"),
 					},

@@ -4,10 +4,13 @@ import (
 	"net/http"
 	"testing"
 
-	"gopkg.in/h2non/gock.v1"
+	gock "gopkg.in/h2non/gock.v1"
 )
 
-const testClusterEndpoint = "http://example.com:9200"
+const (
+	testClusterEndpoint = "http://example.com:9200"
+	nodeName            = "ip-10-0-1-23.ap-northeast-1.compute.internal"
+)
 
 func TestDisableReallocation(t *testing.T) {
 	defer gock.Off()
@@ -52,8 +55,6 @@ func TestExcludeNodeFromAllocation(t *testing.T) {
 
 	gock.New(testClusterEndpoint).Put("/_cluster/settings").BodyString(`{"transient":{"cluster.routing.allocation.exclude._name":"ip-10-0-1-23.ap-northeast-1.compute.internal"}}`).Reply(200)
 
-	nodeName := "ip-10-0-1-23.ap-northeast-1.compute.internal"
-
 	if err := client.ExcludeNodeFromAllocation(nodeName); err != nil {
 		t.Errorf("error should not be raised: %s", err)
 	}
@@ -71,8 +72,6 @@ func TestListShardsOnNode(t *testing.T) {
 	gock.New(testClusterEndpoint).Get("/_cat/shards").Reply(200).BodyString(`wiki1 0 p STARTED 3014 31.1mb 192.168.56.10 ip-10-0-1-23.ap-northeast-1.compute.internal
 wiki1 1 p STARTED 3013 29.6mb 192.168.56.30 Frankie Raye
 wiki1 2 p STARTED 3973 38.1mb 192.168.56.20 Commander Kraken`)
-
-	nodeName := "ip-10-0-1-23.ap-northeast-1.compute.internal"
 
 	shards, err := client.ListShardsOnNode(nodeName)
 	if err != nil {
@@ -100,8 +99,6 @@ func TestShutdown(t *testing.T) {
 	}
 
 	gock.New(testClusterEndpoint).Post("/_cluster/nodes/ip-10-0-1-23.ap-northeast-1.compute.internal/_shutdown").Reply(200)
-
-	nodeName := "ip-10-0-1-23.ap-northeast-1.compute.internal"
 
 	if err := client.Shutdown(nodeName); err != nil {
 		t.Errorf("error should not be raised: %s", err)
