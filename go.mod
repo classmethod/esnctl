@@ -1,10 +1,9 @@
-module github.com/classmethod/esnctl
+module github.com/dtan4/esnctl
 
 go 1.12
 
 require (
 	github.com/aws/aws-sdk-go v1.7.9
-	github.com/dtan4/esnctl v0.2.1
 	github.com/fortytw2/leaktest v1.3.0 // indirect
 	github.com/go-ini/ini v0.0.0-20161120031036-2ba15ac2dc9c // indirect
 	github.com/golang/mock v0.0.0-20160127222235-bd3c8e81be01
